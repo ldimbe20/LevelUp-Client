@@ -12,11 +12,11 @@ export const EventList = (props) => {
   }, [])
 
   return (
-    <article className="games">
+    <article className="event">
       {events.map((event) => {
         return (
           <section>
-            <h1>{event.game.title}</h1>
+            <h1> Play </h1>
 
             {event.description}
             {event.date} at {event.time}
