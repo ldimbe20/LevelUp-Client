@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useHistory } from 'react-router-dom'
-import { createEvent, getGameTypes } from './EventManager.js'
+import { createEvent } from './EventManager.js'
+import { getGames } from "../games/GameManager.js"
 
 
 export const EventForm = () => {
@@ -12,17 +13,16 @@ export const EventForm = () => {
 
 
   const [currentEvent, setCurrentEvent] = useState({
-    gameId: 1,
+    gameId:1,
     description: "",
     date: "",
-    time: "",
-    gamerId: 1,
+    time: ""
   })
 
-//   useEffect(() => {
+  useEffect(() => {
     
-//     getGameTypes().then(gameTypeData => setGameTypes(gameTypeData))
-//   }, [])
+    getGames().then(gameData => setGameTypes(gameData))
+  }, [])
 
   const changeEventState = (domEvent) => {
     const copy = {...currentEvent}
@@ -34,7 +34,19 @@ export const EventForm = () => {
 
   return (
     <form className="gameForm">
-      <h2 className="gameForm__title">Register New Game</h2>
+      <h2 className="gameForm__title">Register New Event</h2>
+
+      <fieldset>
+        <div>
+          <label>Game Type</label>
+          <select onChange={changeEventState} name="gameId" value={currentEvent.gameId}>
+            <option value="0">Select a game type</option>
+            {
+              gameTypes.map(gameType => <option value={gameType.id}>{gameType.title}</option>)
+            }
+          </select>
+        </div>
+      </fieldset>
 
       <fieldset>
         <div className="form-group">
@@ -74,11 +86,10 @@ export const EventForm = () => {
           evt.preventDefault()
 
           const event = {
-            maker: currentEvent.maker,
-            title: currentEvent.title,
-            number_of_players: parseInt(currentEvent.numberOfPlayers),
-            skill_level: parseInt(currentEvent.skillLevel),
-            game_type: parseInt(currentEvent.gameTypeId)
+            game:currentEvent.gameId,
+            description: currentEvent.description,
+            date: currentEvent.date,
+            time: currentEvent.time,
           }
 
           // Send POST request to your API
@@ -89,3 +100,5 @@ export const EventForm = () => {
     </form>
   )
 }
+
+
