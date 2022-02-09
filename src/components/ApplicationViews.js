@@ -4,6 +4,7 @@ import { GameList } from "./games/GameList.js"
 import { EventList } from "./events/EventList.js"
 import { GameForm } from "./games/GameForm.js"
 import { EventForm } from "./events/EventForm.js"
+import {UpdateEvent} from "./events/UpdateEvent.js"
 
 export const ApplicationViews = () => {
   return <>
@@ -27,6 +28,11 @@ export const ApplicationViews = () => {
       <EventForm />
      </Route>
 
+     <Route exact path="/events/:eventId(\d+)/update">
+        < UpdateEvent />
+      </Route>
+
+     
 
     </main>
   </>
