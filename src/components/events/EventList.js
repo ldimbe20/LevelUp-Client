@@ -16,10 +16,11 @@ export const EventList = (props) => {
       {events.map((event) => {
         return (
           <section>
-            <h1> Play </h1>
+            <h1> Play {event.game.title}</h1>
 
-            {event.description}
-            {event.date} at {event.time}
+            {event.description} event held on {event.date} at {event.time}
+
+        <Link className="btn" to={`/events/${event.id}/update`}>Edit Event</Link>
           </section>
         )
       })
